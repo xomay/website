@@ -1,13 +1,10 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
+import { tabTo } from './keyboard.js';
 
 test.use({ javaScriptEnabled: false });
 
 async function followWithKeyboard(page: Page, link: Locator) {
-  for (let step = 0; step < 20; step++) {
-    await page.keyboard.press('Tab');
-    if (await link.evaluate(element => element === document.activeElement)) break;
-  }
-  await expect(link).toBeFocused();
+  await tabTo(page, link);
   await page.keyboard.press('Enter');
 }
 

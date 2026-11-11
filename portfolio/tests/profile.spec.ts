@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { expect, test } from '@playwright/test';
+import { tabTo } from './keyboard.js';
 
 test('a recruiter can identify the candidate, assess availability and reach his contacts', async ({ page }) => {
   await page.goto('/');
@@ -22,11 +23,7 @@ test('a recruiter can identify the candidate, assess availability and reach his 
 test('download the approved CV and reach each contact using only the keyboard', async ({ page }) => {
   await page.goto('/');
   const link = page.getByRole('link', { name: /download cv/i });
-  for (let step = 0; step < 15; step++) {
-    await page.keyboard.press('Tab');
-    if (await link.evaluate(el => el === document.activeElement)) break;
-  }
-  await expect(link).toBeFocused();
+  await tabTo(page, link);
   const downloadEvent = page.waitForEvent('download');
   await page.keyboard.press('Enter');
   const download = await downloadEvent;

@@ -57,20 +57,6 @@ h1 em, .research h2 em, .catalogue h2 em { color: var(--accent); }
 .button small { font-size: .78em; color: #dbe6df; }
 .text-link, .profiles a { font-size: .93rem; font-weight: 550; }
 .text-link span { margin-left: .3em; }
-.plate { border: 1px solid #bdcbc0; background: #e7eee5; }
-.specimen {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1.42;
-  background-image: linear-gradient(#a0b4a52e 1px, transparent 1px), linear-gradient(90deg, #a0b4a52e 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-.plate-head { position: absolute; inset: 1rem 1.2rem auto; display: flex; justify-content: space-between; color: #4c6458; font-size: .59rem; }
-.specimen img { width: 84%; height: auto; margin-top: 1.3rem; mix-blend-mode: multiply; filter: sepia(.45) hue-rotate(76deg); }
-figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem; padding: .78rem 1.1rem; border-top: 1px solid #bdcbc0; }
-figcaption > span { font: 1.22rem var(--display); }
-figcaption a { font-size: .7rem; color: var(--muted); }
 .availability { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.6rem clamp(1.2rem, 2.5vw, 2.4rem); border: 1px solid var(--line); background: #edf0e7; }
 .availability-label { color: var(--accent); display: flex; align-items: center; gap: .48rem; }
 .availability-label i { width: .48rem; height: .48rem; background: #487756; border-radius: 50%; }
@@ -105,8 +91,6 @@ footer a:focus-visible { outline-color: #f0cba0; }
 
 @media (max-width: 800px) {
   .hero { grid-template-columns: 1fr; gap: 2.6rem; }
-  .specimen { aspect-ratio: 1.9; }
-  .specimen img { width: 65%; }
   .availability { flex-wrap: wrap; }
   .availability dl > div:first-child { border-left: 0; padding-left: 0; }
   .research { gap: 5%; }
@@ -120,8 +104,6 @@ footer a:focus-visible { outline-color: #f0cba0; }
   .hero { padding-block: 2.8rem 2rem; }
   h1 { font-size: clamp(3.7rem, 13vw, 5rem); }
   .affiliation { font-size: .6rem; }
-  .specimen { aspect-ratio: 1.48; }
-  .specimen img { width: 83%; }
   .availability dl { flex-wrap: wrap; }
   .research { grid-template-columns: 1fr; gap: 1.6rem; }
   .contact-inner { flex-direction: column; align-items: flex-start; }

@@ -7,6 +7,8 @@
   <meta name="description" content="Mathys Dubois, AI engineering student at INSA Rennes, seeking a six-month research internship in AI for health from 15 February 2027.">
   <title>Mathys Dubois — AI for health</title>
   <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="avatar.css">
+  <script type="module" src="avatar.js"></script>
 </head>
 <body>
   <a class="skip" href="#profile">Skip to profile</a>
@@ -34,16 +36,29 @@
           <a class="text-link" href="#contact">Get in touch <span aria-hidden="true">↘</span></a>
         </div>
       </div>
-      <figure class="plate">
-        <div class="specimen">
-          <div class="plate-head smallcaps"><span>Neuroanatomy</span><span>Lateral view</span></div>
-          <img src="assets/cerebral-hemisphere.png" width="700" height="405" alt="Historical line drawing of the left cerebral hemisphere, with its folds labelled.">
+      <section id="avatar" class="avatar" aria-labelledby="avatar-title">
+        <header class="avatar-header">
+          <h2 id="avatar-title">Anatomical avatar</h2>
+          <p id="avatar-instructions" hidden>Choose an organ or the briefcase to explore projects.</p>
+        </header>
+        <div class="avatar-stage">
+          <img src="assets/anatomical-avatar.webp" width="1024" height="1536" alt="Illustration of Mathys in three-quarter view, carrying a briefcase. His brain, heart and lungs are visible through the silhouette.">
+          <div class="avatar-controls" role="group" aria-labelledby="avatar-title" aria-describedby="avatar-instructions" hidden>
+            <button type="button" data-area="brain" aria-controls="area-panel" aria-expanded="false"><span>Brain</span></button>
+            <button type="button" data-area="heart" aria-controls="area-panel" aria-expanded="false"><span>Heart</span></button>
+            <button type="button" data-area="lungs" aria-controls="area-panel" aria-expanded="false"><span>Lungs</span></button>
+            <button type="button" data-area="briefcase" aria-controls="area-panel" aria-expanded="false"><span>Briefcase</span></button>
+          </div>
         </div>
-        <figcaption>
-          <span>Left cerebral hemisphere</span>
-          <a href="https://commons.wikimedia.org/wiki/File:Gray726.png" aria-label="Illustration source, Gray’s Anatomy, 1918">Gray’s Anatomy, 1918 <span aria-hidden="true">↗</span></a>
-        </figcaption>
-      </figure>
+        <section id="area-panel" class="area-panel" aria-labelledby="area-title" hidden>
+          <header>
+            <h3 id="area-title" tabindex="-1"></h3>
+            <button type="button" class="area-close">Close <span aria-hidden="true">×</span></button>
+          </header>
+          <p class="area-empty">No projects yet.</p>
+          <ul class="project-list" hidden></ul>
+        </section>
+      </section>
     </section>
 
     <section class="availability" aria-labelledby="internship">

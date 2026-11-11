@@ -1,0 +1,50 @@
+.avatar { border: 1px solid #bdcbc0; min-width: 0; }
+.avatar-header { padding: .9rem 1.2rem; }
+.avatar-header h2 { font-size: 1.7rem; }
+.avatar-header p, .area-empty { margin-top: .35rem; color: var(--muted); font-size: .9rem; }
+.avatar-stage {
+  position: relative;
+  aspect-ratio: 6 / 5;
+  isolation: isolate;
+  border-top: 1px solid #bdcbc0;
+  background-color: #edf1e8;
+  background-image: linear-gradient(#a0b4a526 1px, transparent 1px), linear-gradient(90deg, #a0b4a526 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.avatar-stage img { position: absolute; width: 52%; height: auto; top: 3%; left: 24%; mix-blend-mode: multiply; }
+.avatar button { font: inherit; cursor: pointer; }
+.avatar button:focus-visible, .area-panel h3:focus-visible { outline: 3px solid #a34a20; outline-offset: 3px; }
+.avatar-controls button {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  right: 4%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.avatar-controls button::before { content: ""; flex: 1; border-top: 1px solid #718779; }
+.avatar-controls button::after { content: ""; position: absolute; left: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.avatar-controls [data-area="brain"] { --x: 49.5%; --y: 8%; }
+.avatar-controls [data-area="heart"] { --x: 52%; --y: 27%; }
+.avatar-controls [data-area="lungs"] { --x: 46%; --y: 29%; }
+.avatar-controls [data-area="briefcase"] { --x: 38%; --y: 61%; color: var(--ink); }
+.avatar-controls :is([data-area="lungs"], [data-area="briefcase"]) { flex-direction: row-reverse; left: 4%; right: calc(100% - var(--x)); }
+.avatar-controls :is([data-area="lungs"], [data-area="briefcase"])::after { left: auto; right: 0; }
+.avatar-controls span { padding: .3rem .7rem; border: 1px solid #9bad9e; border-radius: 3px; background: var(--paper); font-size: .86rem; font-weight: 550; }
+.avatar-controls :is(button:hover, button:focus-visible, button[aria-expanded="true"]) span { color: white; background: var(--accent); border-color: var(--accent); }
+.area-panel { padding: .9rem 1.2rem 1.2rem; border-top: 1px solid var(--line); }
+.area-panel header { display: flex; justify-content: space-between; align-items: center; gap: .6rem; }
+.area-panel h3 { font-size: 1.8rem; }
+.area-close { min-height: 44px; padding: 0 .6rem; border: 0; background: none; color: var(--accent); }
+.area-close span { margin-left: .2rem; }
+.area-panel .project-list { margin-top: .6rem; }
+.area-panel .project-entry { grid-template-columns: 1fr auto; gap: .4rem 1rem; padding-block: .8rem; border-bottom: 0; }
+.area-panel .project-summary { grid-column: 1; font-size: .9rem; }
+.area-panel .project-entry > span { grid-area: 1 / 2 / 3 / 3; }
+.area-panel .project-entry h3 { font-size: 1.8rem; }
