@@ -2,7 +2,9 @@
 
 La page anglaise est un document HTML statique. Depuis ce dossier, lancer `npm run dev` (Node.js et Python 3), puis ouvrir http://127.0.0.1:4173. Le dossier `site` est directement servi, sans compilation.
 
-Le contenu anglais est dans `site/index.html`. Pour ajouter une autre langue, créer un document localisé utilisant la même feuille de style et les mêmes ressources, dont le CV français. Le document et les liens essentiels fonctionnent sans JavaScript.
+Le profil et le catalogue anglais sont dans `site/index.html`. Chaque entrée du catalogue porte un identifiant stable (`data-project`), un classement (`data-category`), le statut connu (`data-status`) et un lien vers sa fiche. Pour Flower, `undocumented` signifie que le statut du projet collectif reste à confirmer. La fiche publiée se trouve dans `site/projects/flower/index.html` et contient le récit, le schéma et les liens publics. Toute entrée vers Flower, y compris depuis la future Valisette, peut pointer vers cette même URL.
+
+Pour ajouter une langue, créer un document localisé avec le même identifiant de projet, les mêmes feuilles de style et les mêmes ressources, dont le CV français. Les documents et leurs liens fonctionnent sans JavaScript.
 
 ## Vérification
 

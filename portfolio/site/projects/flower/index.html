@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f8f3">
+  <meta name="description" content="Mathys Dubois’s contributions to Flower, Ouest INSA’s collaborative ERP/CRM for managing client studies and generating documents.">
+  <title>Flower — Mathys Dubois</title>
+  <link rel="stylesheet" href="../../profile.css">
+  <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+  <a class="skip" href="#flower">Skip to project</a>
+  <header class="masthead wrap">
+    <a class="identity" href="../../#profile">
+      <img src="../../assets/mathys-dubois.jpg" width="38" height="38" alt="">
+      <span>Mathys Dubois</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="../../#projects">All projects</a>
+      <a href="../../#profile">Profile</a>
+    </nav>
+  </header>
+
+  <main id="flower" tabindex="-1" class="wrap">
+    <div class="case-intro">
+      <header>
+        <p class="smallcaps affiliation">Ouest INSA <span aria-hidden="true">/</span> Information systems</p>
+        <h1>Flower</h1>
+        <p class="lead">Software for managing client studies</p>
+        <p class="description">Ouest INSA’s information systems team develops Flower, the association’s ERP/CRM. I contributed to its development and maintenance, working on study amendments, document generation and the interfaces the team uses to manage studies.</p>
+        <a class="button source-link" href="https://github.com/xomay/Flower" rel="external">Explore the public code <span aria-hidden="true">↗</span></a>
+      </header>
+      <figure class="workflow" aria-labelledby="workflow-title">
+        <figcaption id="workflow-title">From a study record to an agreement</figcaption>
+        <ol>
+          <li><strong>Study record</strong><span>A team member requests an agreement from the study interface.</span></li>
+          <li><strong>Agreement template</strong><span>The server fills a DOCX template with the study’s phases, schedule and fees.</span></li>
+          <li><strong>DOCX download</strong><span>The browser downloads the filled agreement as an editable document.</span></li>
+        </ol>
+      </figure>
+    </div>
+
+    <section class="case-section" aria-labelledby="problem">
+      <h2 id="problem">The problem</h2>
+      <p>Ouest INSA manages studies for clients. A study has requirements, phases of work and an agreement. If the budget or deadline changes, the team needs to record the amendment and keep track of which terms apply.</p>
+    </section>
+    <section class="case-section" aria-labelledby="approach">
+      <h2 id="approach">Approach</h2>
+      <p>Team members edit studies in a Vue 3 interface written in JavaScript. A Python backend uses Django and Django REST Framework to read and update records in MySQL or MariaDB. The document generator draws on those same records when it prepares an agreement.</p>
+    </section>
+    <section class="case-section" aria-labelledby="contributions">
+      <h2 id="contributions">My contributions</h2>
+      <ul class="contributions">
+        <li><h3>Study amendments</h3><p>I reworked the amendment creation form and added an editing view that uses the same form. A team member can record changes such as a revised deadline or budget.</p>
+          <a href="https://github.com/xomay/Flower/commit/60059fd5bcbd2f9245e4df8cf224c604d81856c9" rel="external">Study amendments commit</a></li>
+        <li><h3>Requirements and phases</h3><p>I linked phases to the requirements in the study specification. A team member editing a phase can select the requirements it covers by reference.</p>
+          <a href="https://github.com/xomay/Flower/commit/fda8be9548029bad6e8d3a45e70056df80dc2130" rel="external">Requirements and phases commit</a></li>
+        <li><h3>PDF generation</h3><p>I added PDF output to the publishing service and a download action in the study interface. It uses the agreement template and the study data already in Flower.</p>
+          <a href="https://github.com/xomay/Flower/commit/440732d27513bfb25032f657a31515f6eaf025d4" rel="external">PDF generation commit</a></li>
+      </ul>
+    </section>
+    <section class="case-section" aria-labelledby="results">
+      <h2 id="results">Results and limits</h2>
+      <div>
+        <p>The public code shows how a team member can record a change, connect work to its requirements and download an editable agreement. I have no usage figures or measurements of time saved to report.</p>
+        <p>The study agreement template uses two filters to group phases of work. At the reviewed revision, only the DOCX renderer registers both filters. PDF export of this template fails before conversion. <a href="https://github.com/xomay/Flower/blob/9fe859b9b8c661b139f3c299c23ed58b77121a3b/flower_backend/flower_app/controllers/publishing/publishing.py#L72-L152" rel="external">Document rendering code</a></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
