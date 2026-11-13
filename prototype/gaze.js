@@ -52,33 +52,51 @@ finePointer.addEventListener('change', preferencesChanged);
 
 // Keep the existing navigation labels aligned with the new fixed character.
 const landmarks = {
-  brain: [.50, .137],
+  brain: [.50, .145],
   lungs: [.425, .61],
-  heart: [.585, .63],
+  heart: [.575, .61],
   clipboard: [.23, .76],
 };
 function alignAnnotations() {
   const portrait = character.getBoundingClientRect();
   const base = hero.getBoundingClientRect();
   const explorer = hero.querySelector('.explorer');
-  if (matchMedia('(max-width:800px)').matches) {
-    explorer.style.top = (stage.getBoundingClientRect().top - base.top + stage.clientHeight * .13) + 'px';
-  } else explorer.style.top = '';
+  const stageTop = stage.getBoundingClientRect().top - base.top;
+  explorer.style.setProperty('--stage-top', stageTop + 'px');
+  explorer.style.setProperty('--stage-height', stage.clientHeight + 'px');
   connections.replaceChildren();
   for (const [name, [x, y]] of Object.entries(landmarks)) {
     const label = hero.querySelector('[data-zone="' + name + '"]').getBoundingClientRect();
     const startX = portrait.left - base.left + portrait.width * x;
     const startY = portrait.top - base.top + portrait.height * y;
-    const endX = label.left - base.left;
+    const onLeft = label.left + label.width / 2 < portrait.left + portrait.width / 2;
+    const endX = (onLeft ? label.right : label.left) - base.left;
     const endY = label.top - base.top + label.height / 2;
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', 'M ' + startX + ' ' + startY + ' H ' + (endX - 25) + ' L ' + endX + ' ' + endY);
+    path.setAttribute('d', 'M ' + startX + ' ' + startY + ' H ' + (endX + (onLeft ? 25 : -25)) + ' L ' + endX + ' ' + endY);
     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     dot.setAttribute('cx', startX);
     dot.setAttribute('cy', startY);
     dot.setAttribute('r', '3');
     connections.append(path, dot);
   }
+  const preview = hero.querySelector('#preview');
+  if (!preview.hidden) {
+    const mobile = matchMedia('(max-width:800px)').matches;
+    const label = hero.querySelector('.markers [data-zone="' + preview.dataset.zone + '"]').getBoundingClientRect();
+    const onLeft = label.left + label.width / 2 < portrait.left + portrait.width / 2;
+    const cardWidth = preview.offsetWidth;
+    const cardHeight = preview.offsetHeight;
+    const left = mobile ? (base.width - cardWidth) / 2
+      : onLeft ? label.right - base.left - cardWidth : label.left - base.left;
+    const below = label.bottom - base.top + 12;
+    const bottom = stageTop + stage.clientHeight - 12;
+    const top = mobile ? stageTop + stage.clientHeight + 12
+      : below + cardHeight <= bottom ? below : label.top - base.top - cardHeight - 12;
+    preview.style.left = Math.max(12, Math.min(left, base.width - cardWidth - 12)) + 'px';
+    preview.style.top = Math.max(stageTop + 12, top) + 'px';
+    hero.style.setProperty('--detail-height', mobile ? (cardHeight + 24) + 'px' : '0px');
+  } else hero.style.setProperty('--detail-height', '0px');
   schedule();
 }
 new ResizeObserver(alignAnnotations).observe(hero);

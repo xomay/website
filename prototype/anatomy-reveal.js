@@ -1,3 +1,6 @@
+import { alignAnatomy } from './align-anatomy.js';
+import { magnifyAnatomy } from './magnify-anatomy.js';
+
 const character = document.querySelector('.gaze-character');
 const stage = document.querySelector('#stage');
 const surface = character.querySelector('.character-base');
@@ -8,6 +11,7 @@ let selected = null;
 let alphaMap;
 let previousZone = null;
 let anatomyReady = false;
+let magnify = () => {};
 
 for (const button of targets) button.dataset.labelEn = button.getAttribute('aria-label');
 
@@ -34,6 +38,7 @@ function update() {
   const visible = anatomyReady && (overCharacter || !!selected);
   character.classList.toggle('anatomy-visible', visible);
   stage.dataset.revealed = String(visible);
+  magnify(visible ? selected : null);
   for (const button of targets) {
     const active = button.dataset.anatomyZone === selected;
     button.classList.toggle('selected', active);
@@ -80,6 +85,49 @@ window.addEventListener('blur', () => {
 });
 update();
 
-Promise.all([...character.querySelectorAll('.anatomy-layer img')].map(image => image.decode()))
-  .then(() => { anatomyReady = true; update(); })
+alignAnatomy(
+  surface,
+  character.querySelector('.anatomy-state')
+)
+  .then(rendering => { magnify = magnifyAnatomy(rendering); anatomyReady = true; update(); })
   .catch(() => { /* Keep the portrait opaque and project navigation usable. */ });
+
+
+// The circular pointer is scoped to the explorer, so links elsewhere keep their usual cursor.
+const cursor = document.createElement('div');
+cursor.className = 'interaction-cursor';
+cursor.setAttribute('aria-hidden', 'true');
+document.body.append(cursor);
+let cursorTarget = null;
+function hideCursor() {
+  cursor.hidden = true;
+  cursorTarget?.classList.remove('has-interaction-cursor');
+  cursorTarget = null;
+}
+hideCursor();
+window.addEventListener('pointermove', event => {
+  if (event.pointerType !== 'mouse' || !finePointer.matches || !anatomyReady) {
+    hideCursor();
+    return;
+  }
+  const zone = event.target.closest('[data-anatomy-zone], button[data-zone]');
+  const card = event.target.closest('#preview');
+  const silhouette = stage.contains(event.target) && onSilhouette(event);
+  const owner = zone || card || (silhouette ? stage : null);
+  if (!owner) {
+    hideCursor();
+    return;
+  }
+  if (cursorTarget !== owner) {
+    cursorTarget?.classList.remove('has-interaction-cursor');
+    cursorTarget = owner;
+    cursorTarget.classList.add('has-interaction-cursor');
+  }
+  cursor.hidden = false;
+  cursor.dataset.action = zone || event.target.closest('#zone-project, #dismiss') ? 'select' : 'scan';
+  cursor.style.transform = 'translate3d(' + event.clientX + 'px,' + event.clientY + 'px,0) translate(-50%,-50%)';
+}, { passive: true });
+document.documentElement.addEventListener('pointerleave', hideCursor);
+window.addEventListener('blur', hideCursor);
+window.addEventListener('scroll', hideCursor, { passive: true });
+finePointer.addEventListener('change', hideCursor);

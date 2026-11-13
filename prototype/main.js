@@ -34,6 +34,7 @@ function display(area) {
     document.querySelector('#zone-project').hidden = !clipboard;
   }
   window.dispatchEvent(new CustomEvent('highlight', {detail:area}));
+  window.dispatchEvent(new Event('annotations-resize'));
 }
 function visitFlower() {
   const project = document.querySelector('#flower');

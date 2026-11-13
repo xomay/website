@@ -73,3 +73,21 @@ L’état anatomique utilise désormais une représentation complète du personn
 ## Simplification du rendu anatomique
 
 À la demande de l’auteur, l’état anatomique adopte une transparence douce et mate, les couleurs naturelles du personnage et des organes, des contours discrets et un éclairage diffus. Les repères de la page sont atténués pour une présentation plus épurée.
+
+## État de survol validé inspiré de la 3D
+
+L’auteur a validé une silhouette très légère aux contours bleutés, avec traits du visage et vêtements estompés, cerveau et poumons rose doux et cœur corail visibles à l’intérieur. Ce rendu remplace l’état anatomique mat précédent. La plaquette conserve son bleu opaque, la main devient discrètement translucide et les iris animés sont estompés pendant la révélation. Les interactions sur les trois organes et la plaquette restent accessibles au clavier et au toucher.
+
+## Indices d’interaction au survol
+
+Les organes et la plaquette survolés gagnent en contraste et en couleur, avec un agrandissement discret et un repère bleu. Un curseur circulaire apparaît sur la silhouette et les cartes ; il affiche un signe « + » sur les zones sélectionnables. Le curseur standard revient en dehors de l’exploration et aucun curseur personnalisé n’est affiché au toucher. La préférence de réduction des mouvements conserve la mise en évidence sans agrandissement animé. Les quatre zones, le passage vers la carte et le comportement tactile ont été vérifiés dans Chromium.
+
+Le survol est simplifié à la demande de l’auteur : éclairage renforcé et léger grossissement de la zone concernée, avec un curseur « + ». Les contours, halos et fonds de sélection ajoutés autour des organes sont retirés.
+
+Le dernier choix de l’auteur conserve uniquement le contour bleu et le léger grossissement de la zone sélectionnée. L’éclairage renforcé est supprimé. Le curseur redevient le cercle bleu avec un « + » sur les zones interactives.
+
+Les états normal et anatomique partagent désormais le contour alpha exact du portrait validé. Le rendu anatomique est recalé au chargement sur cette silhouette commune, avec prolongement local des couleurs aux bords pour éviter le décalage du bras et du torse pendant la transition. L’égalité des contours et les interactions ont été vérifiées dans Chromium.
+
+## Correction du grossissement local
+
+Le survol conserve uniquement un grossissement discret de 2,5 %, sans contour ni éclairage ajouté, et le curseur circulaire avec « + ». L'ancienne copie agrandie avec découpes est supprimée : elle dédoublait les bords et coupait les doigts autour de la plaquette. Une déformation locale continue agit désormais directement sur l'unique toile anatomique, avec raccord progressif à l'image et interpolation des couleurs tenant compte de la transparence. Les doigts suivent la plaquette, le cœur est protégé pendant le grossissement des poumons et la silhouette alpha reste inchangée. Chaque image est calculée à partir de l'original pour garantir le retour exact, y compris lors de changements rapides de zone. La préférence de réduction des mouvements désactive ce grossissement.
