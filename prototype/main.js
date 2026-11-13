@@ -1,5 +1,7 @@
 import './gaze.js';
 import './anatomy-reveal.js';
+import './character-life.js';
+import { refreshThemeLabel } from './theme.js';
 
 const areas = {
   brain: ['Brain', 'Cerveau', 'How can brain images and signals help us understand neurological disease?', 'Que peuvent nous apprendre les images et signaux cérébraux sur les maladies neurologiques ?'],
@@ -41,7 +43,10 @@ function visitFlower() {
   project.open = true;
   project.querySelector('summary').focus({preventScroll:true});
   project.scrollIntoView({block:'center'});
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) project.animate([{background:'#c4d8ff'},{background:'#eff4ff'}], {duration:950});
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const style = getComputedStyle(project);
+    project.animate([{ background: style.getPropertyValue('--project-flash') }, { background: style.backgroundColor }], { duration: 950 });
+  }
   display(null);
   pinned = false;
 }
@@ -102,6 +107,7 @@ document.querySelector('.hero').addEventListener('pointerleave', scheduleClose);
 languageButton.onclick = () => {
   french = !french;
   document.documentElement.lang = french ? 'fr' : 'en';
+  refreshThemeLabel();
   languageButton.textContent = french ? 'EN' : 'FR';
   languageButton.setAttribute('aria-label', french ? 'Switch to English' : 'Afficher en français');
   for (const [el,en] of translated) el.textContent = french ? el.dataset.fr : en;
