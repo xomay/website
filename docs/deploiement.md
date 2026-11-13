@@ -1,20 +1,26 @@
 # Publication sur GitHub Pages
 
 Le site se trouve dans `prototype` et doit être compilé avec Vite avant publication.
-Le workflow `.github/workflows/deploy-pages.yml` installe les dépendances, construit
-le site et publie uniquement `prototype/dist`.
+La branche `gh-pages` contient uniquement le contenu compilé de `prototype/dist`
+et un fichier `.nojekyll`. Le code source reste sur `master`.
 
 Dans les paramètres du dépôt, ouvrir **Settings → Pages → Build and deployment**
-et choisir **GitHub Actions** comme source. Le choix « Deploy from a branch » ne
-permet de sélectionner que la racine ou `docs`, pas un dossier arbitraire.
+et choisir **Deploy from a branch**, puis la branche **gh-pages** et le dossier
+**/ (root)**. Ce mode ne permet de sélectionner que la racine ou `docs`, pas un
+dossier arbitraire comme `prototype`.
 
-Le déploiement démarre après un push dans `master` qui modifie le site ou le
-workflow. Il peut aussi être lancé depuis **Actions → Deploy portfolio to GitHub
-Pages → Run workflow**. Le résultat et l’adresse publiée apparaissent dans ce workflow.
+Le site est publié à `https://xomay.github.io/website/`. Après une modification,
+compiler avec `npm run build -- --base=/website/` depuis `prototype`, puis publier
+le contenu de `prototype/dist` à la racine de `gh-pages`, avec `.nojekyll`.
+Un push de code source sur `master` ne met pas à jour cette branche automatiquement.
 
-Le chemin public est calculé depuis la configuration Pages du dépôt : `/website/`
-pour `https://xomay.github.io/website/`, ou `/` si un domaine personnalisé est configuré.
-La configuration du serveur de développement local reste inchangée.
+Le workflow `.github/workflows/deploy-pages.yml` constitue une alternative manuelle
+qui construit et déploie le site depuis les sources. Lors du premier essai,
+GitHub a refusé de démarrer le job à cause d’un problème de facturation du compte.
+Pour utiliser ce workflow après résolution, sélectionner **GitHub Actions** comme
+source dans Pages, puis **Actions → Deploy portfolio to GitHub Pages → Run workflow**.
+Il déduit alors le chemin public de la configuration Pages. Le serveur de
+développement local reste inchangé dans les deux modes.
 
 Pour vérifier localement la compilation avec le chemin du dépôt :
 

@@ -1,11 +1,8 @@
 name: Deploy portfolio to GitHub Pages
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - 'prototype/**'
-      - '.github/workflows/deploy-pages.yml'
+  # Optional alternative once Actions is available on the GitHub account.
+  # The active publishing source is currently gh-pages (compiled static files).
   workflow_dispatch:
 
 permissions:
