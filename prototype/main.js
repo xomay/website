@@ -4,10 +4,15 @@ import './character-life.js';
 import { refreshThemeLabel } from './theme.js';
 
 const areas = {
-  brain: ['Brain', 'Cerveau', 'How can brain images and signals help us understand neurological disease?', 'Que peuvent nous apprendre les images et signaux cérébraux sur les maladies neurologiques ?'],
-  lungs: ['Lungs', 'Poumons', 'I’m interested in what machine learning can reveal in chest images.', 'Je m’intéresse à ce que l’apprentissage automatique peut révéler sur les images thoraciques.'],
+  brain: ['Tumorstral', 'Tumorstral', 'Forecasting tumour growth with mechanistic models and zero-shot Timestral.', 'Prévision de croissance tumorale avec des modèles mécanistes et Timestral en zéro-shot.'],
+  lungs: ['Hailth', 'Hailth', 'Multi-label classification of 14 thoracic findings in chest X-rays with PyTorch.', 'Classification multi-label de 14 observations thoraciques sur radiographies avec PyTorch.'],
   heart: ['Heart', 'Cœur', 'I’d like to explore how models learn from physiological signals over time.', 'J’aimerais explorer comment les modèles apprennent à partir de signaux physiologiques dans le temps.'],
   clipboard: ['Clipboard', 'Plaquette', 'Engineering projects beyond medicine.', 'Mes projets d’ingénierie hors médecine.']
+};
+const projectsByArea = {
+  brain: { id: 'tumorstral', name: 'Tumorstral' },
+  lungs: { id: 'hailth', name: 'Hailth' },
+  clipboard: { id: 'flower', name: 'Flower' },
 };
 const buttons = [...document.querySelectorAll('[data-zone]')];
 const preview = document.querySelector('#preview');
@@ -31,15 +36,25 @@ function display(area) {
     const text = areas[area];
     document.querySelector('#zone-title').textContent = text[french ? 1 : 0];
     document.querySelector('#zone-copy').textContent = text[french ? 3 : 2];
-    const clipboard = area === 'clipboard';
-    document.querySelector('#zone-state').textContent = clipboard ? '' : (french ? 'Aucun projet publié pour le moment.' : 'No project published yet.');
-    document.querySelector('#zone-project').hidden = !clipboard;
+    const project = projectsByArea[area];
+    const link = document.querySelector('#zone-project');
+    const state = document.querySelector('#zone-state');
+    state.hidden = !!project;
+    state.textContent = project
+      ? ''
+      : (french ? 'Aucun projet publié pour le moment.' : 'No project published yet.');
+    link.hidden = !project;
+    if (project) {
+      link.href = '#' + project.id;
+      document.querySelector('#zone-project-label').textContent = project.name;
+    } else link.removeAttribute('href');
   }
   window.dispatchEvent(new CustomEvent('highlight', {detail:area}));
   window.dispatchEvent(new Event('annotations-resize'));
 }
-function visitFlower() {
-  const project = document.querySelector('#flower');
+function visitProject(id) {
+  const project = document.getElementById(id);
+  if (!project) return;
   project.open = true;
   project.querySelector('summary').focus({preventScroll:true});
   project.scrollIntoView({block:'center'});
@@ -92,7 +107,7 @@ preview.addEventListener('focusin', cancelClose);
 preview.addEventListener('focusout', scheduleClose);
 document.querySelector('#zone-project').addEventListener('click', event => {
   event.preventDefault();
-  visitFlower();
+  visitProject(event.currentTarget.hash.slice(1));
 });
 function dismiss() {
   cancelClose();

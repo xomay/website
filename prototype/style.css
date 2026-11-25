@@ -117,7 +117,7 @@ header{height:104px;position:sticky;top:0;background:#fcfdffeb;backdrop-filter:b
 .eye { pointer-events: none; transition: opacity .22s ease; }
 .anatomy-visible .eye { opacity: .13; }
 
-.popover[data-zone="clipboard"] #zone-project { display: inline-block; padding: 8px 12px; margin-top: 8px; border-radius: 5px; background: #eaf0ff; }
+.popover #zone-project { display: inline-block; padding: 8px 12px; margin-top: 8px; border-radius: 5px; background: #eaf0ff; }
 @media(prefers-reduced-motion:reduce) {
   .character-base, .character-motion, .anatomy-layer, .eye { transition: none; }
 }
@@ -218,7 +218,7 @@ header{height:104px;position:sticky;top:0;background:#fcfdffeb;backdrop-filter:b
 [data-theme="dark"] .markers button.active b { color: #0b182e; }
 [data-theme="dark"] .popover { background: #152238; border-color: #425c82; box-shadow: 0 12px 32px #0003; }
 [data-theme="dark"] .popover small { color: #a9bddb; }
-[data-theme="dark"] .popover[data-zone="clipboard"] #zone-project { background: #243c62; }
+[data-theme="dark"] .popover #zone-project { background: #243c62; }
 [data-theme="dark"] .connections path { stroke: #8caee3; }
 [data-theme="dark"] .connections circle { fill: #142238; }
 [data-theme="dark"] .lower details { background: #142238; border-color: #304867; }
@@ -236,3 +236,7 @@ header{height:104px;position:sticky;top:0;background:#fcfdffeb;backdrop-filter:b
 
 .link-arrow { display: inline-block; width: 1em; height: 1em; vertical-align: -.12em; margin-left: .15em; flex: none; }
 .markers .link-arrow { margin-left: 0; }
+
+.project-list { display: grid; gap: 16px; min-width: 0; align-content: start; }
+.detail p + p { margin-top: 12px; }
+.lower summary > span:first-child { min-width: 0; }

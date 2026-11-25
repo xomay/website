@@ -95,3 +95,9 @@ Le survol conserve uniquement un grossissement discret de 2,5 %, sans contour ni
 ## Animations discrètes du personnage
 
 Le personnage opaque cligne des yeux à intervalles irréguliers, parfois deux fois, et incline occasionnellement la tête de moins d’un degré autour du cou. Les yeux accompagnent cette inclinaison et continuent de suivre le pointeur ; le torse et la plaquette restent fixes. Ces animations restent actives lorsque le visiteur déplace la souris ailleurs sur la page. Dès que l’état translucide apparaît, elles s’arrêtent et retrouvent la pose neutre. Elles sont également suspendues hors écran, dans un onglet masqué et lorsque la réduction des mouvements est demandée. Les calques de tête sont préparés à partir du portrait existant, sans téléchargement d’images supplémentaires.
+
+## Projets médicaux reliés aux organes
+
+Hailth est relié aux poumons et Tumorstral au cerveau. Les cartes anatomiques ouvrent leurs fiches respectives dans la liste des projets ; la plaquette conserve son accès à Flower. Hailth est présenté comme un projet en cours sur la classification multi-label de radiographies thoraciques NIH ChestX-ray14, avec entraînement complet et évaluation encore à venir. Tumorstral est présenté comme un projet de recherche sur la prévision de croissance tumorale, sans lui attribuer de résultats spécifiques aux tumeurs cérébrales. Les présentations et statuts sont disponibles en anglais et en français.
+
+Hailth et Tumorstral portent tous deux le statut « En cours » dans la liste des projets. Les mentions de statut sont retirées des cartes de survol pour laisser le lien vers la fiche plus lisible.
